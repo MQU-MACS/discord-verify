@@ -63,6 +63,8 @@ app.get('/verify', async (req, res) => {
     return res.status(403).json({ error: 'fullName not set' });
   }
 
+  const mqEmailRegex =
+    /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
   const staffRegex = /^[a-z]+\.[a-z0-9]+@mq\.edu\.au$/;
 
   try {
@@ -72,6 +74,7 @@ app.get('/verify', async (req, res) => {
       mqID,
       fullName,
       staffRegex.test(email),
+      !mqEmailRegex.test(email)
     );
   } catch (e) {
     console.log(e);
