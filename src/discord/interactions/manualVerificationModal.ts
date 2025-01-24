@@ -45,7 +45,10 @@ export default async function handleManualVerificationModal(
     return;
   }
 
+  const mqEmailRegex =
+    /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
   const staffRegex = /^[a-z]+\.[a-z0-9]+@mq\.edu\.au$/;
+  const external = !mqEmailRegex.test(email); // if user doesn't have an mq email, set external to true
 
   try {
     await addVerifiedUserToDb(
@@ -54,6 +57,7 @@ export default async function handleManualVerificationModal(
       mqID,
       fullName,
       staffRegex.test(email),
+      external
     );
   } catch (e) {
     console.error(e);
@@ -61,7 +65,7 @@ export default async function handleManualVerificationModal(
   }
 
   try {
-    await verifyUserInDiscord(discordId);
+    await verifyUserInDiscord(discordId, external);
   } catch (error) {
     console.error("Couldn't verify user in discord", error);
     try {

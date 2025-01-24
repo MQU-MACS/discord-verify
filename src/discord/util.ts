@@ -48,7 +48,7 @@ export const isVerified = async (member: Snowflake): Promise<boolean> => {
   });
 };
 
-export const verifyUserInDiscord = async (userId: string) => {
+export const verifyUserInDiscord = async (userId: string, external: boolean) => {
   const guild = client.guilds.cache.get(config.discord.guildId);
   if (!guild) {
     throw new Error('Could not find guild');
@@ -68,6 +68,19 @@ export const verifyUserInDiscord = async (userId: string) => {
   if (isVerified) {
     throw new Error('User already verified');
   }
+
+  // Add the external role to the user if they are external
+  let externalRole;
+  try {
+    externalRole = await guild.roles.fetch(config.discord.externalRoleId);
+    if (!externalRole) {
+      throw new Error(`External role not found`);
+    }
+  } catch (error) {
+    throw new Error(`External role not found`);
+  }
+
+  if (external) await member.roles.add(externalRole);
 
   // Add the verified role to the user
   let verifiedRole;

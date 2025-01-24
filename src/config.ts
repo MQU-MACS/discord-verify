@@ -6,6 +6,7 @@ interface IConfig {
     clientId: string;
     guildId: string;
     verifiedRoleId: string;
+    externalRoleId: string;
   };
   web: {
     jwtSecret: string;
@@ -40,6 +41,7 @@ const loadConfig = () => {
       clientId: process.env.DISCORD_CLIENT_ID || '',
       guildId: process.env.DISCORD_GUILD_ID || '',
       verifiedRoleId: process.env.DISCORD_VERIFIED_ROLE_ID || '',
+      externalRoleId: process.env.DISCORD_EXTERNAL_ROLE_ID || '',
     },
     web: {
       jwtSecret: process.env.WEB_JWT_SECRET || '',

@@ -56,9 +56,6 @@ app.get('/verify', async (req, res) => {
   if (!email) {
     return res.status(403).json({ error: 'email not set' });
   }
-  if (!mqID) {
-    return res.status(403).json({ error: 'mqID not set' });
-  }
   if (!fullName) {
     return res.status(403).json({ error: 'fullName not set' });
   }
@@ -66,15 +63,20 @@ app.get('/verify', async (req, res) => {
   const mqEmailRegex =
     /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
   const staffRegex = /^[a-z]+\.[a-z0-9]+@mq\.edu\.au$/;
+  const external = !mqEmailRegex.test(email); // if user doesn't have an mq email, set external to true
+
+  if (!mqID && !external) {
+    return res.status(403).json({ error: 'mqID not set' });
+  }
 
   try {
     await addVerifiedUserToDb(
       discordId,
       email,
-      mqID,
+      external ? "" : mqID, // don't set id if external
       fullName,
       staffRegex.test(email),
-      !mqEmailRegex.test(email)
+      external
     );
   } catch (e) {
     console.log(e);
@@ -89,7 +91,7 @@ app.get('/verify', async (req, res) => {
   }
 
   try {
-    await verifyUserInDiscord(discordId);
+    await verifyUserInDiscord(discordId, external);
   } catch (error) {
     console.log("Couldn't verify user in discord", error);
 
