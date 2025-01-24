@@ -13,7 +13,7 @@ export default async function handleNormalVerificationModal(
   const mqID = interaction.fields.getTextInputValue('idInput');
 
   const fullNameRegex = /^\w+ \w+(?: \w+)*$/;
-  const emailRegex =
+  const mqEmailRegex =
     /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
   const idRegex = /^(mq|MQ)?[0-9]{8,12}$/;
 
@@ -30,7 +30,7 @@ export default async function handleNormalVerificationModal(
     return;
   }
 
-  if (!emailRegex.test(email)) {
+  if (!mqEmailRegex.test(email)) {
     try {
       await interaction.reply({
         content: 'Please enter a staff or student email address.',
@@ -43,7 +43,7 @@ export default async function handleNormalVerificationModal(
     return;
   }
 
-  if (!idRegex.test(mqID)) {
+  if (mqEmailRegex.test(email) && !idRegex.test(mqID)) {
     try {
       await interaction.reply({
         content: 'Please enter a valid student or staff ID.',
