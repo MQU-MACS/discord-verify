@@ -111,7 +111,7 @@ export const deleteUser = async (discordId: string) => {
 export const addVerifiedUserToDb = async (
   discordId: string,
   email: string,
-  mqID: string,
+  mqID = "",
   fullName: string,
   staff: boolean,
   external: boolean
