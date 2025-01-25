@@ -15,7 +15,7 @@ export default async function handleNormalVerificationModal(
   const fullNameRegex = /^\w+ \w+(?: \w+)*$/;
   const mqEmailRegex =
     /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
-  const eduEmailRegex = /^[a-z]+\.[a-z0-9]+@.*?\.edu\.au$/;
+  const eduEmailRegex = /^.*?@.*?\.edu\.au$/;
   const idRegex = /^(mq|MQ)?[0-9]{8,12}$/;
 
   if (!fullNameRegex.test(fullName)) {
@@ -34,7 +34,7 @@ export default async function handleNormalVerificationModal(
   if (!eduEmailRegex.test(email)) {
     try {
       await interaction.reply({
-        content: 'Please enter your university email address.',
+        content: 'Please enter a valid university email address.',
         ephemeral: true,
       });
     } catch (error) {
