@@ -46,7 +46,7 @@ app.get('/verify', async (req, res) => {
   }
 
   const discordId = verifiedJwt.payload.sub;
-  const email = verifiedJwt.payload.email;
+  const email = verifiedJwt.payload.email?.toLowerCase();
   const mqID = verifiedJwt.payload.mqID;
   const fullName = verifiedJwt.payload.fullName;
 

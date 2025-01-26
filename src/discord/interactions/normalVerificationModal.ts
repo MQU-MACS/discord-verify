@@ -9,7 +9,7 @@ export default async function handleNormalVerificationModal(
 ) {
   // Get the data entered by the user
   const fullName = interaction.fields.getTextInputValue('fullNameInput');
-  const email = interaction.fields.getTextInputValue('emailInput');
+  const email = interaction.fields.getTextInputValue('emailInput').toLowerCase();
   const mqID = interaction.fields.getTextInputValue('idInput');
 
   const fullNameRegex = /^\w+ \w+(?: \w+)*$/;
