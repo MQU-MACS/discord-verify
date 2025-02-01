@@ -13,6 +13,7 @@ interface IUser {
   mqID: string;
   fullName: string;
   isStaff: boolean;
+  isExternal: boolean;
   verified: boolean;
   dateVerified: Date;
   attempts: IAttempt[];
@@ -31,6 +32,7 @@ const UserSchema = new Schema<IUser>({
   mqID: String,
   fullName: String,
   isStaff: String,
+  isExternal: Boolean,
   verified: { type: Boolean, required: true },
   dateVerified: Date,
   attempts: [AttemptSchema],
@@ -109,9 +111,10 @@ export const deleteUser = async (discordId: string) => {
 export const addVerifiedUserToDb = async (
   discordId: string,
   email: string,
-  mqID: string,
+  mqID = "",
   fullName: string,
   staff: boolean,
+  external: boolean
 ) => {
   // Check if email already exists on another discord account
   try {
@@ -139,6 +142,7 @@ export const addVerifiedUserToDb = async (
       mqID,
       fullName,
       isStaff: staff,
+      isExternal: external,
       verified: true,
       dateVerified: new Date(),
     });
@@ -147,6 +151,7 @@ export const addVerifiedUserToDb = async (
     user.mqID = mqID;
     user.fullName = fullName;
     user.isStaff = staff;
+    user.isExternal = external;
     user.verified = true;
     user.dateVerified = new Date();
   }

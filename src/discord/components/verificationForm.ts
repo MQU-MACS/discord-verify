@@ -8,7 +8,7 @@ import {
 export default function generateVerificationModal(
   title: string,
   modalID: string,
-  requireMQID = true,
+  requireMQID = false,
   additionalFields?: readonly [TextInputBuilder, TextInputBuilder?],
 ) {
   const fullNameComponent = new TextInputBuilder()
@@ -31,7 +31,7 @@ export default function generateVerificationModal(
 
   const idComponent = new TextInputBuilder()
     .setCustomId('idInput')
-    .setLabel("What's your student or staff ID?")
+    .setLabel("What's your student or staff ID? (MQ only)")
     .setRequired(requireMQID)
     .setPlaceholder('41234567')
     .setMinLength(8)

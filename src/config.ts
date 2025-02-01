@@ -6,15 +6,21 @@ interface IConfig {
     clientId: string;
     guildId: string;
     verifiedRoleId: string;
+    externalRoleId: string;
   };
   web: {
     jwtSecret: string;
     uri: string;
   };
-  ses: {
-    region: string;
-    accessKeyId: string;
-    secretAccessKey: string;
+  email: {
+    // ses: {
+    //   region: string;
+    //   accessKeyId: string;
+    //   secretAccessKey: string;
+    // };
+    sendgrid: {
+      apiKey: string;
+    };
   };
   db: {
     host: string;
@@ -35,15 +41,21 @@ const loadConfig = () => {
       clientId: process.env.DISCORD_CLIENT_ID || '',
       guildId: process.env.DISCORD_GUILD_ID || '',
       verifiedRoleId: process.env.DISCORD_VERIFIED_ROLE_ID || '',
+      externalRoleId: process.env.DISCORD_EXTERNAL_ROLE_ID || '',
     },
     web: {
       jwtSecret: process.env.WEB_JWT_SECRET || '',
       uri: process.env.WEB_URI || '',
     },
-    ses: {
-      region: process.env.SES_REGION || '',
-      accessKeyId: process.env.SES_ACCESS_KEY_ID || '',
-      secretAccessKey: process.env.SES_SECRET_ACCESS_KEY || '',
+    email: {
+      // ses: {
+      //   region: process.env.SES_REGION || '',
+      //   accessKeyId: process.env.SES_ACCESS_KEY_ID || '',
+      //   secretAccessKey: process.env.SES_SECRET_ACCESS_KEY || '',
+      // },
+      sendgrid: {
+        apiKey: process.env.SENDGRID_API_KEY || '',
+      },
     },
     db: {
       host: process.env.DB_HOST || '',
