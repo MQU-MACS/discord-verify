@@ -9,6 +9,9 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
+      - id: lower-repo
+        run: |
+          echo "repository=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -26,8 +29,8 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ steps.lower-repo.outputs.repository }}:${{ github.sha }}
+            ghcr.io/${{ steps.lower-repo.outputs.repository }}:latest
       -
         name: Image Digest
         run: echo ${{ steps.docker_build.outputs.digest }}
