@@ -11,10 +11,7 @@ const sendEmail = async (email: string, username: string, jwt: string) => {
     to: email, // Change to your recipient
     from: 'noreply@macs.codes', // Change to your verified sender
     subject: 'MACS Discord Verification',
-    text: `Hi ${username},\n\nPlease click here to verify your Discord account in the MACS server: ${verificationUrl}\n\nIf you did not request this email, please ignore it.`,
-    html: `Hi ${username},<br><br>
-          <a href="${verificationUrl}">Please click here to verify your Discord account in the MACS server</a><br><br>
-          If you did not request this email, please ignore it.`,
+    text: `Hi ${username},\n\nPlease click here to verify your Discord account in the MACS server: ${verificationUrl}\n\nIf you did not request this email, please ignore it.`
   };
 
   try {
