@@ -5,7 +5,6 @@ import {
   PermissionsBitField,
   IntentsBitField,
   SlashCommandBuilder,
-  SlashCommandOptionsOnlyBuilder,
 } from 'discord.js';
 import { isVerified, logInteraction } from './util';
 import pingCommand from './commands/ping';
@@ -36,7 +35,7 @@ const client = new Client({
 type TPermissionSlashCommand = {
   data:
     | SlashCommandBuilder
-    | SlashCommandOptionsOnlyBuilder
+    | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
   execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
   public?: boolean;
 };
