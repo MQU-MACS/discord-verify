@@ -59,8 +59,11 @@ export default async function handleManualVerificationModal(
       staffRegex.test(email),
       external
     );
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    if (errChannel?.isTextBased()) {
+      await errChannel.send(`User \`${discordId} (${email}\`) failed manual verification:\n${e}`);
+    }
     return;
   }
 
@@ -73,8 +76,11 @@ export default async function handleManualVerificationModal(
         content: "Couldn't verify user in discord",
         ephemeral: true,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (e: any) {
+      const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+      if (errChannel?.isTextBased()) {
+        await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
+      }
     }
     return;
   }
@@ -85,7 +91,10 @@ export default async function handleManualVerificationModal(
       content: 'User verified.',
       ephemeral: true,
     });
-  } catch (error) {
-    console.error(error);
+  } catch (e: any) {
+    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    if (errChannel?.isTextBased()) {
+      await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
+    }
   }
 }

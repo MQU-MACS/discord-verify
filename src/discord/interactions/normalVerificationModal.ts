@@ -93,6 +93,10 @@ export default async function handleNormalVerificationModal(
   } catch (error) {
     console.log(error);
     try {
+      const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+      if (errChannel?.isTextBased()) {
+        await errChannel.send(`Failed to send email to \`${interaction.user.username} (${email})\`:\n${error}`);
+      }
       await interaction.reply({
         content:
           'There was an error sending the email. Please contact an admin if you see this.',
@@ -112,7 +116,10 @@ export default async function handleNormalVerificationModal(
 
     await sendEmail(email, interaction.user.username, jwt);
   } catch (error) {
-    console.error(error);
+    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    if (errChannel?.isTextBased()) {
+      await errChannel.send(`Failed to send email to \`${interaction.user.username} (${email})\`:\n${error}`);
+    }
 
     try {
       await interaction.reply({
