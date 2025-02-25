@@ -62,7 +62,7 @@ export default async function handleManualVerificationModal(
   } catch (e: any) {
     const errChannel = interaction.client.channels.cache.get("1343557810050568257");
     if (errChannel?.isTextBased()) {
-      await errChannel.send(`User \`${discordId}\`(\`${email}\`) failed manual verification:\n${e}`);
+      await errChannel.send(`User \`${discordId} (${email}\`) failed manual verification:\n${e}`);
     }
     return;
   }
@@ -79,7 +79,7 @@ export default async function handleManualVerificationModal(
     } catch (e: any) {
       const errChannel = interaction.client.channels.cache.get("1343557810050568257");
       if (errChannel?.isTextBased()) {
-        await errChannel.send(`User \`${discordId}\`(\`${email}\`) failed manual verification:\n${e}`);
+        await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
       }
     }
     return;
@@ -94,7 +94,7 @@ export default async function handleManualVerificationModal(
   } catch (e: any) {
     const errChannel = interaction.client.channels.cache.get("1343557810050568257");
     if (errChannel?.isTextBased()) {
-      await errChannel.send(`User \`${discordId}\`(\`${email}\`) failed manual verification:\n${e}`);
+      await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
     }
   }
 }
