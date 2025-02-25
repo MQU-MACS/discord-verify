@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'arm64'
+      - 'discord-logging'
 
 jobs:
   build-and-push:
@@ -34,7 +35,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ steps.lower-repo.outputs.repository }}:${{ github.sha }}
-            ghcr.io/${{ steps.lower-repo.outputs.repository }}:latest
+            ghcr.io/${{ steps.lower-repo.outputs.repository }}:discord-logging
           platforms: linux/amd64,linux/arm64
       -
         name: Image Digest

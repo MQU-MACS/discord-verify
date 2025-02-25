@@ -4,6 +4,7 @@ import * as jose from 'jose';
 import { addVerifiedUserToDb } from '../db';
 import { verifyUserInDiscord } from '../discord/util';
 import loadConfig from '../config';
+import client from '../index';
 
 const config = loadConfig();
 
@@ -79,7 +80,10 @@ app.get('/verify', async (req, res) => {
       external
     );
   } catch (e) {
-    console.log(e);
+    const errChannel = client.channels.cache.get("1343557810050568257");
+    if (errChannel?.isTextBased()) {
+      await errChannel.send(`User \`${discordId}\`(\`${email}\`) failed verification:\n${e}`);
+    }
 
     if (typeof e === 'string') {
       res.status(403).json({ error: e });
@@ -94,6 +98,10 @@ app.get('/verify', async (req, res) => {
     await verifyUserInDiscord(discordId, external);
   } catch (error) {
     console.log("Couldn't verify user in discord", error);
+    const errChannel = client.channels.cache.get("1343557810050568257");
+    if (errChannel?.isTextBased()) {
+      await errChannel.send(`User \`${discordId}\`(\`${email}\`) failed verification:\n${error}`);
+    }
 
     if (error instanceof Error) {
       res.json({ error: error.message });

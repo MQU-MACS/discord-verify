@@ -18,6 +18,7 @@ const sendEmail = async (email: string, username: string, jwt: string) => {
     await sgMail.send(msg);
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
