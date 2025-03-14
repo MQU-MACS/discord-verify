@@ -63,7 +63,7 @@ app.get('/verify', async (req, res) => {
 
   const mqEmailRegex =
     /^[a-z-]+\.[a-z-]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/i;
-  const staffRegex = /^[a-z]+\.[a-z0-9]+@mq\.edu\.au$/;
+  const staffRegex = /^[a-z-]+\.[a-z0-9-]+@mq\.edu\.au$/i;
   const external = !mqEmailRegex.test(email); // if user doesn't have an mq email, set external to true
 
   if (!mqID && !external) {
