@@ -14,7 +14,7 @@ export default async function handleNormalVerificationModal(
 
   const fullNameRegex = /^\w+ \w+(?: \w+)*$/;
   const mqEmailRegex =
-    /^[a-z-]+\.[a-z]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/;
+    /^[a-z-]+\.[a-z-]+[0-9]*@(students\.mq\.edu\.au|mq\.edu\.au)$/i;
   const eduEmailRegex = /^.*?@.*?\.edu\.au$/;
   const idRegex = /^(mq|MQ)?[0-9]{8,12}$/;
 
