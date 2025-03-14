@@ -80,7 +80,7 @@ app.get('/verify', async (req, res) => {
       external
     );
   } catch (e) {
-    const errChannel = client.channels.cache.get("1343557810050568257");
+    const errChannel = client.channels.cache.get(config.discord.logChannelId);
     if (errChannel?.isTextBased()) {
       await errChannel.send(`User \`${discordId} (${email})\` failed verification:\n${e}`);
     }
@@ -98,7 +98,7 @@ app.get('/verify', async (req, res) => {
     await verifyUserInDiscord(discordId, external);
   } catch (error) {
     console.log("Couldn't verify user in discord", error);
-    const errChannel = client.channels.cache.get("1343557810050568257");
+    const errChannel = client.channels.cache.get(config.discord.logChannelId);
     if (errChannel?.isTextBased()) {
       await errChannel.send(`User \`${discordId} (${email})\` failed verification:\n${error}`);
     }
