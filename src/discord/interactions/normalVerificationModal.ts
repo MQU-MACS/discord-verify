@@ -2,6 +2,9 @@ import { ModalSubmitInteraction } from 'discord.js';
 import * as jose from 'jose';
 import { addAttempt, attemptsForUser } from '../../db';
 import sendEmail from '../../email';
+import loadConfig from '../../config';
+
+const config = loadConfig();
 
 export default async function handleNormalVerificationModal(
   interaction: ModalSubmitInteraction,
@@ -93,7 +96,7 @@ export default async function handleNormalVerificationModal(
   } catch (error) {
     console.log(error);
     try {
-      const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+      const errChannel = interaction.client.channels.cache.get(config.discord.logChannelId);
       if (errChannel?.isTextBased()) {
         await errChannel.send(`Failed to send email to \`${interaction.user.username} (${email})\`:\n${error}`);
       }
@@ -116,7 +119,7 @@ export default async function handleNormalVerificationModal(
 
     await sendEmail(email, interaction.user.username, jwt);
   } catch (error) {
-    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    const errChannel = interaction.client.channels.cache.get(config.discord.logChannelId);
     if (errChannel?.isTextBased()) {
       await errChannel.send(`Failed to send email to \`${interaction.user.username} (${email})\`:\n${error}`);
     }

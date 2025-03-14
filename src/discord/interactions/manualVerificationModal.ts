@@ -2,6 +2,9 @@ import { ModalSubmitInteraction } from 'discord.js';
 import { addVerifiedUserToDb } from '../../db';
 import { verifyUserInDiscord } from '../util';
 import Joi from 'joi';
+import loadConfig from '../../config';
+
+const config = loadConfig();
 
 export default async function handleManualVerificationModal(
   interaction: ModalSubmitInteraction,
@@ -60,7 +63,7 @@ export default async function handleManualVerificationModal(
       external
     );
   } catch (e: any) {
-    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    const errChannel = interaction.client.channels.cache.get(config.discord.logChannelId);
     if (errChannel?.isTextBased()) {
       await errChannel.send(`User \`${discordId} (${email}\`) failed manual verification:\n${e}`);
     }
@@ -77,7 +80,7 @@ export default async function handleManualVerificationModal(
         ephemeral: true,
       });
     } catch (e: any) {
-      const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+      const errChannel = interaction.client.channels.cache.get(config.discord.logChannelId);
       if (errChannel?.isTextBased()) {
         await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
       }
@@ -92,7 +95,7 @@ export default async function handleManualVerificationModal(
       ephemeral: true,
     });
   } catch (e: any) {
-    const errChannel = interaction.client.channels.cache.get("1343557810050568257");
+    const errChannel = interaction.client.channels.cache.get(config.discord.logChannelId);
     if (errChannel?.isTextBased()) {
       await errChannel.send(`User \`${discordId} (${email})\` failed manual verification:\n${e}`);
     }
