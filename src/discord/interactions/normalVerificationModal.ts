@@ -34,6 +34,19 @@ export default async function handleNormalVerificationModal(
     return;
   }
 
+  if (!mqEmailRegex.test(email) && email.endsWith("mq.edu.au")) {
+    try {
+      await interaction.reply({
+        content: 'Please enter your email in `firstname.lastname` format',
+        ephemeral: true,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+    return;
+  }
+
   if (!eduEmailRegex.test(email)) {
     try {
       await interaction.reply({
