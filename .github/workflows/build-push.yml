@@ -5,6 +5,8 @@ on:
     branches:
       - 'main'
       - 'arm64'
+  pull_request:
+    types: [synchronize]
 
 jobs:
   build-and-push:
