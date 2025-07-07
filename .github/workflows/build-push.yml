@@ -5,9 +5,11 @@ on:
     branches:
       - 'main'
       - 'arm64'
-  pull_request:
-    types: [synchronize]
-
+      - 'nogrid'
+  workflow_dispatch:
+    branches:
+      - 'main'
+      - 'nogrid'
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
