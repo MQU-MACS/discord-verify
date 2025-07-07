@@ -22,6 +22,9 @@ interface IConfig {
     sendgrid: {
       apiKey: string;
     };
+    brevo: {
+      apiKey: string;
+    };
   };
   db: {
     host: string;
@@ -57,6 +60,9 @@ const loadConfig = () => {
       // },
       sendgrid: {
         apiKey: process.env.SENDGRID_API_KEY || '',
+      },
+      brevo: {
+        apiKey: process.env.BREVO_API_KEY || '',
       },
     },
     db: {

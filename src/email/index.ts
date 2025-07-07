@@ -1,3 +1,3 @@
-import sendEmail from './sendgrid';
+import sendEmail from './brevo';
 
 export default sendEmail;
