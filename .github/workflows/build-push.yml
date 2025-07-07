@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'arm64'
+      - 'nogrid'
   workflow_dispatch:
     branches:
       - 'main'
