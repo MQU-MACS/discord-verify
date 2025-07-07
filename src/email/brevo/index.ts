@@ -1,4 +1,4 @@
-import brevoMail from '@getbrevo/brevo';
+import * as brevoMail from '@getbrevo/brevo';
 import loadConfig from '../../config';
 
 const config = loadConfig();
